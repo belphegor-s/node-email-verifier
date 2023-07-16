@@ -1,0 +1,27 @@
+{
+    "name": "email-verifier",
+    "version": "1.0.0",
+    "main": "src/index.ts",
+    "scripts": {
+        "start": "node dist/index.js",
+        "dev": "nodemon src/index.ts",
+        "build": "tsc"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "compression": "^1.7.4",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "helmet": "^7.0.0",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "@types/compression": "^1.7.2",
+        "@types/express": "^4.17.17",
+        "@types/morgan": "^1.9.4",
+        "@types/node": "^20.4.2",
+        "nodemon": "^3.0.1",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.1.6"
+    }
+}
