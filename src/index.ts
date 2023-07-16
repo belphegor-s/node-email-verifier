@@ -13,12 +13,12 @@ import morgan from "morgan";
 const app = express();
 
 const accessLogStream = fs.createWriteStream(
-	path.join(__dirname,'access.log'),
+	path.join(__dirname,'../access.log'),
 	{flags: 'a'}
 )
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(helmet());
 app.use(compression());
 app.use(morgan('combined', {stream: accessLogStream}));
@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/v1', verifyRoutes);
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "views/404.html"));
+    res.sendFile(path.join(__dirname, "../views/404.html"));
 })
 
 app.listen(PORT, () => {
