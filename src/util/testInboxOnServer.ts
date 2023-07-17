@@ -47,7 +47,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                 case SMTPStageNames.SEND_EHLO: {
                     const expectedReplyCode = '250';
                     const nextStageName = SMTPStageNames.SEND_MAIL_FROM;
-                    const command = `MAIL FROM:<name@example.org\r\n`;
+                    const command = `MAIL FROM:<name@example.org>\r\n`;
 
                     if(!response.startsWith(expectedReplyCode)) {
                         socket.end();
