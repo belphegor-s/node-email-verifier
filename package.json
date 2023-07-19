@@ -5,7 +5,8 @@
     "scripts": {
         "start": "tsc && node dist/index.js",
         "dev": "nodemon src/index.ts",
-        "build": "tsc"
+        "build": "tsc",
+        "vercel-build": "echo builiding"
     },
     "license": "MIT",
     "dependencies": {
