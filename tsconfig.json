@@ -5,6 +5,7 @@
         "lib": ["es2016"],
         "typeRoots": ["./node_modules/@types"],
         "outDir": "dist",
+        "rootDir": "src",
         "strict": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
@@ -17,5 +18,5 @@
         "resolveJsonModule": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src/**/*", "api/*.ts"]
+    "include": ["src/**/*"]
 }
