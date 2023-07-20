@@ -6,6 +6,7 @@ import { MxRecord } from "dns";
 import { TTestInboxResult } from "../types/global";
 import testInboxOnServer from "../util/testInboxOnServer";
 import { randomBytes } from "crypto";
+import domainCheck from "../util/domainCheck";
 
 const verifyEmail = async (req: Request, res: Response) => {
     let success = false, msg = '', data: any = {}, status = 200;
@@ -67,4 +68,36 @@ const verifyEmail = async (req: Request, res: Response) => {
     }
 }
 
-export { verifyEmail }
+const getMXRecordsController = async (req: Request, res: Response) => {
+    let success = false, msg = '', data: any = {}, status = 200;
+    try {
+        const domain = (req.params?.domain && typeof req.params?.domain === 'string' && req.params?.domain?.trim()) || '';
+
+        if(!domain || !(await domainCheck(domain))) {
+            msg = 'Invalid domain!';
+            status = 422;
+            throw new Error(msg);
+        }
+
+        const mxRecords = await getMXRecords(domain);
+        const sortedMXRecords = mxRecords?.sort((a: MxRecord, b: MxRecord) => a.priority - b.priority);
+
+        success = true;
+        msg = `Successfully fetched MX records for the domain -> ${domain}`;
+        data = {
+            mxRecords: sortedMXRecords
+        }
+    } catch(e) {
+        msg = msg || 'Internal server error';
+        status = status || 500;
+        console.error(`Error occured in getMXRecordsController() -> `, e);
+    } finally {
+        res.status(status).json({
+            success,
+            msg,
+            ...validObj(data) ? { data } : {}
+        })
+    }
+}
+
+export { verifyEmail, getMXRecordsController }

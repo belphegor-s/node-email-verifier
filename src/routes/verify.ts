@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { verifyEmail } from "../controllers/verify";
+import { getMXRecordsController, verifyEmail } from "../controllers/verify";
 const router = Router();
 
 router.get('/verify/:email', verifyEmail);
+router.get('/getMXRecords/:domain', getMXRecordsController)
 
 export default router;
