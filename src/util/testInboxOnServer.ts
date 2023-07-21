@@ -26,7 +26,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                 case SMTPStageNames.CHECK_CONNNECTION_ESTABLISHED: {
                     const expectedReplyCode = '220';
                     const nextStageName = SMTPStageNames.SEND_EHLO;
-                    const command = `EHLO mail.example.org\r\n`;
+                    const command = `EHLO mail.example.org\n`;
 
                     if(!response.startsWith(expectedReplyCode)) {
                         console.error(response);
@@ -47,7 +47,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                 case SMTPStageNames.SEND_EHLO: {
                     const expectedReplyCode = '250';
                     const nextStageName = SMTPStageNames.SEND_MAIL_FROM;
-                    const command = `MAIL FROM:<name@example.org>\r\n`;
+                    const command = `MAIL FROM:<name@example.org>\n`;
 
                     if(!response.startsWith(expectedReplyCode)) {
                         socket.end();
@@ -65,7 +65,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                 case SMTPStageNames.SEND_MAIL_FROM: {
                     const expectedReplyCode = '250';
                     const nextStageName = SMTPStageNames.SEND_RECIPIENT_TO;
-                    const command = `RCPT TO:<${emailInbox}>\r\n`;
+                    const command = `RCPT TO:<${emailInbox}>\n`;
 
                     if(!response.startsWith(expectedReplyCode)) {
                         socket.end();
@@ -82,7 +82,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
 
                 case SMTPStageNames.SEND_RECIPIENT_TO: {
                     const expectedReplyCode = '250';
-                    const command = `QUIT\r\n`;
+                    const command = `QUIT\n`;
 
                     if(!response.startsWith(expectedReplyCode)) {
                         socket.end();
