@@ -53,7 +53,8 @@ const verifyEmail = async (req: Request, res: Response) => {
         data = {
             email_format_valid: emailSyntaxCheck(email),
             uses_catch_all: usesCatchAll,
-            ...smtpResult
+            ...smtpResult,
+            mx_records: sortedMXRecords
         }
     } catch(e) {
         msg = msg || 'Internal server error';
