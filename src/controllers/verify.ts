@@ -51,6 +51,7 @@ const verifyEmail = async (req: Request, res: Response) => {
         success = true;
         msg = "Successfully fetched email verification status";
         data = {
+            email,
             email_format_valid: emailSyntaxCheck(email),
             uses_catch_all: usesCatchAll,
             ...smtpResult,
