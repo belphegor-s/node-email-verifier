@@ -3,6 +3,7 @@
         "target": "es2016",
         "module": "commonjs",
         "lib": ["es2016"],
+        "sourceMap": true,
         "typeRoots": ["./node_modules/@types"],
         "outDir": "dist",
         "rootDir": "src",
