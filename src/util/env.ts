@@ -1,11 +1,16 @@
-const PORT = process.env?.PORT || 8080; // port is optional (no check)
-    // STRIPE_SECRET = process.env?.STRIPE_SECRET || '',
-    // PRICE_KEY = process.env?.PRICE_KEY || '';
+import { config } from "dotenv";
+config();
 
-// if(!STRIPE_SECRET) {
-//     throw new Error('STRIPE_SECRET missing!');
-// } else if(!PRICE_KEY) {
-//     throw new Error(`PRICE_KEY missing!`);
-// }
+const STRIPE_SECRET_KEY = process.env?.STRIPE_SECRET_KEY || '',
+    STRIPE_PRICE_ID = process.env?.STRIPE_PRICE_ID || '',
+    WEBHOOK_SECRET = process.env?.WEBHOOK_SECRET || '';
 
-export { PORT };
+if(!STRIPE_SECRET_KEY) {
+    throw new Error(`STRIPE_SECRET_KEY missing!`);
+} else if(!STRIPE_PRICE_ID) {
+    throw new Error(`STRIPE_PRICE_ID missing!`);
+} else if(!WEBHOOK_SECRET) {
+    throw new Error(`WEBHOOK_SECRET missing!`);
+}
+
+export { STRIPE_SECRET_KEY, STRIPE_PRICE_ID, WEBHOOK_SECRET }

@@ -1,23 +1,34 @@
-import dotenv from "dotenv";
-dotenv.config();
+import { config } from "dotenv";
+config();
+const PORT = process.env?.PORT ?? 8080;
 
-import express from "express";
-import getMXRecords from "./util/getMXRecords";
+import express, { Request, Response } from "express";
+// import getMXRecords from "./util/getMXRecords";
 import verifyRoutes from "./routes/verify";
+import billingRoutes from "./routes/billing";
 import fs from "fs";
 import path from "path";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
-import { PORT } from "./util/env";
 const app = express();
+
+declare global {
+    namespace Express {
+        interface Request {
+            rawBody?: Buffer | string;
+        }
+    }
+}
 
 const accessLogStream = fs.createWriteStream(
 	path.join(__dirname,'../access.log'),
 	{flags: 'a'}
 )
 
-app.use(express.json());
+app.use(express.json({
+    verify: (req: Request, res: Response, buffer: Buffer) => (req['rawBody'] = buffer),
+}));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(helmet());
 app.use(compression());
@@ -34,6 +45,7 @@ app.get('/', (req, res) => {
     res.send('Server is live 🍵')
 });
 app.use('/api/v1', verifyRoutes);
+app.use('/api/v1', billingRoutes);
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "../views/404.html"));
 })
