@@ -1,11 +1,15 @@
 {
     "name": "email-verifier",
     "version": "1.0.0",
-    "main": "src/index.ts",
+    "main": "dist/index.js",
     "scripts": {
         "start": "tsc && node dist/index.js",
         "dev": "nodemon src/index.ts",
-        "build": "tsc"
+        "lint": "eslint . --ext .ts",
+        "lint-and-fix": "eslint . --ext .ts --fix",
+        "build": "tsc",
+        "test": "jest",
+        "test:dev": "jest --watchAll"
     },
     "license": "MIT",
     "dependencies": {
@@ -21,6 +25,10 @@
         "@types/express": "^4.17.17",
         "@types/morgan": "^1.9.4",
         "@types/node": "^20.4.2",
+        "@typescript-eslint/eslint-plugin": "^6.7.4",
+        "@typescript-eslint/parser": "^6.7.4",
+        "eslint": "^8.50.0",
+        "jest": "^29.7.0",
         "nodemon": "^3.0.1",
         "ts-node": "^10.9.1",
         "typescript": "^5.1.6"
