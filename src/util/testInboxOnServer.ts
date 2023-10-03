@@ -20,7 +20,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
 
         socket.on('data', (data: Buffer) => {
             const response = data.toString('utf-8');
-            console.log('<-- ', response);
+            // console.log('<-- ', response);
 
             switch(currentStageName) {
                 case SMTPStageNames.CHECK_CONNNECTION_ESTABLISHED: {
@@ -29,7 +29,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                     const command = `EHLO mail.example.org\n`;
 
                     if(!response.startsWith(expectedReplyCode)) {
-                        console.error(response);
+                        // console.error(response);
                         socket.end();
                         return resolve(result);
                     }
@@ -37,7 +37,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                     result.connection_succeeded = true;
 
                     socket.write(command, () => {
-                        console.log('--> ', command);
+                        // console.log('--> ', command);
                         currentStageName = nextStageName
                     })
 
@@ -55,7 +55,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                     }
 
                     socket.write(command, () => {
-                        console.log('--> ', command);
+                        // console.log('--> ', command);
                         currentStageName = nextStageName
                     })
 
@@ -73,7 +73,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                     }
 
                     socket.write(command, () => {
-                        console.log('--> ', command);
+                        // console.log('--> ', command);
                         currentStageName = nextStageName
                     })
 
@@ -92,7 +92,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
                     result.inbox_exists = true;
 
                     socket.write(command, () => {
-                        console.log('--> ', command);
+                        // console.log('--> ', command);
                         socket.end();
                         return resolve(result);
                     })
@@ -106,7 +106,7 @@ const testInboxOnServer = async (smtpHostName: string, emailInbox: string): Prom
         }));
 
         socket.on('connect', () => {
-            console.log(`Connected to: ${smtpHostName}`);
+            // console.log(`Connected to: ${smtpHostName}`);
         })
     })
 }

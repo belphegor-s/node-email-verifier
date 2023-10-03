@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getMXRecordsController, verifyEmail } from "../controllers/verify";
-import { apiAuth } from "../middleware/isAuth";
+import { getMXRecordsController, verifyBulkEmailsController, verifyEmailController } from "../controllers/verify";
 const router = Router();
 
-router.get('/verify/:email',  apiAuth, verifyEmail);
-router.get('/getMXRecords/:domain', apiAuth, getMXRecordsController)
+router.get('/verify/:email', verifyEmailController);
+router.post('/verify-bulk', verifyBulkEmailsController);
+router.get('/get-mx-records/:domain', getMXRecordsController)
 
 export default router;

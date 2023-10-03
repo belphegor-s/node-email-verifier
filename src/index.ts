@@ -1,8 +1,7 @@
-import { config } from "dotenv";
-config();
+import "dotenv/config";
 const PORT = process.env?.PORT ?? 8080;
 
-import express, { Request, Response } from "express";
+import express from "express";
 // import getMXRecords from "./util/getMXRecords";
 import verifyRoutes from "./routes/verify";
 import fs from "fs";
@@ -11,6 +10,7 @@ import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
 const app = express();
+
 
 const accessLogStream = fs.createWriteStream(
 	path.join(__dirname,'../access.log'),
@@ -24,7 +24,9 @@ app.use(compression());
 app.use(morgan('combined', {stream: accessLogStream}));
 //////////////////////////////////////////////////////
 ///////////////////// One time////////////////////////
-// console.log(getMXRecords('gmail.com'))
+// (async () => {
+//     console.log(await getMXRecords('ayushsharma.me'))
+// })()
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 

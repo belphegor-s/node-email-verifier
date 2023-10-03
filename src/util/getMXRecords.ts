@@ -8,7 +8,11 @@ const getMXRecords = async (domain: string) => {
     } catch(e) {
         console.log(`Error occured in getMXRecords() -> `, e);
     } finally {
-        return records;
+        if(!records || !(records?.length > 0)) {
+            return -1;
+        } else {
+            return records;
+        }
     }
 }
 
